@@ -78,8 +78,6 @@ Ingress
 
 ### Kubernetes Architecture
 
-![Kubernetes Architecture](docs/architecture.png)
-
 The deployment contains:
 
 * **Frontend** – React application served using Nginx
@@ -92,22 +90,7 @@ The deployment contains:
 * **Ingress** – manages external traffic to the application
 * **PV/PVC** – provides persistent MongoDB storage
 
-### Architecture Flow
 
-```text
-User
- ↓
-Ingress
- ├──→ Frontend Service → Frontend Deployment → Frontend Pod → Docker Container
- │
- └──→ Backend Service → Backend Deployment → Backend Pod → Docker Container
-                                                    ↓
-                                             MongoDB Service
-                                                    ↓
-                                             MongoDB Pod
-                                                    ↓
-                                                 PV/PVC
-```
 
 ## 🔄 Deployment Flow
 
@@ -139,6 +122,4 @@ The objective of this project is to develop a scalable video conferencing applic
 
 The project demonstrates how a full-stack MERN application can be containerized using Docker and deployed using Kubernetes resources such as **Deployments, Pods, Services, Ingress, PV and PVC**.
 
-## 👨‍💻 Author
 
-**Tanmay Shivaji Lashkar**
