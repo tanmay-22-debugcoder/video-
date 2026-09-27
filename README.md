@@ -12,7 +12,6 @@ A full-stack **video conferencing web application** built using the **MERN stack
 * Responsive React frontend
 * Node.js and Express backend
 * MongoDB database
-
 ## 🛠️ Technology Stack
 
 ### Frontend
