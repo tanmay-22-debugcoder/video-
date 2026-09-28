@@ -1,6 +1,6 @@
 # Video Conferencing Application
 
-A full-stack **video conferencing web application** built using the **MERN stack**, with Docker containerization and Kubernetes deployment.
+A full-stack **video conferencing application** built using the MERN stack and deployed as a containerized application using **Docker and Kubernetes**. The project also includes **Prometheus and Grafana monitoring**, installed and managed using **Helm**.
 
 ## 🚀 Features
 
@@ -12,6 +12,14 @@ A full-stack **video conferencing web application** built using the **MERN stack
 * Responsive React frontend
 * Node.js and Express backend
 * MongoDB database
+* Docker containerization
+* Kubernetes deployment
+* Kubernetes Ingress
+* Persistent MongoDB storage
+* Prometheus monitoring
+* Grafana dashboards
+* Helm-based monitoring installation
+
 ## 🛠️ Technology Stack
 
 ### Frontend
@@ -21,6 +29,7 @@ A full-stack **video conferencing web application** built using the **MERN stack
 * Axios
 * Socket.IO Client
 * WebRTC
+* Nginx
 
 ### Backend
 
@@ -33,33 +42,52 @@ A full-stack **video conferencing web application** built using the **MERN stack
 
 * MongoDB
 
-### DevOps & Deployment
+### DevOps & Monitoring
 
 * Docker
 * Docker Hub
 * Kubernetes
-* Kubernetes Deployments
 * Kubernetes Pods
+* Kubernetes Deployments
 * Kubernetes Services
 * Kubernetes Ingress
 * Persistent Volumes (PV)
 * Persistent Volume Claims (PVC)
+* Helm
+* Prometheus
+* Grafana
 
-## 🐳 Docker
+---
 
-The application is containerized using Docker.
+## 🐳 Docker Containerization
 
-Separate Docker images are created for the frontend and backend:
+The frontend and backend are packaged into separate Docker images.
 
 ```text
-Frontend → Dockerfile → Docker Image → Container
-Backend  → Dockerfile → Docker Image → Container
-MongoDB  → MongoDB Image → Container
+Frontend Code
+     ↓
+Frontend Dockerfile
+     ↓
+Docker Image
+     ↓
+Frontend Container
+
+Backend Code
+     ↓
+Backend Dockerfile
+     ↓
+Docker Image
+     ↓
+Backend Container
 ```
+
+MongoDB uses a MongoDB Docker image with persistent storage.
+
+---
 
 ## ☸️ Kubernetes Deployment
 
-The Docker images are deployed and managed using Kubernetes.
+Docker images are deployed on Kubernetes using Deployments.
 
 ```text
 Docker Image
@@ -71,54 +99,156 @@ Pod
 Container
      ↓
 Service
-     ↓
-Ingress
 ```
+
+### Kubernetes Components
+
+* **Frontend Deployment** – manages React/Nginx Pods
+* **Backend Deployment** – manages Node.js/Express Pods
+* **MongoDB Deployment** – manages MongoDB Pod
+* **Services** – provide communication between Pods
+* **Ingress** – routes external traffic
+* **PV/PVC** – provides persistent MongoDB storage
+* **Namespace** – isolates application resources
 
 ### Kubernetes Architecture
 
-The deployment contains:
-
-* **Frontend** – React application served using Nginx
-* **Backend** – Node.js/Express application
-* **MongoDB** – database with persistent storage
-* **Docker** – containerizes each application component
-* **Pods** – run the application containers
-* **Deployments** – manage and maintain Pods
-* **Services** – enable communication between components
-* **Ingress** – manages external traffic to the application
-* **PV/PVC** – provides persistent MongoDB storage
 
 
+---
 
-## 🔄 Deployment Flow
+## 📊 Monitoring with Prometheus & Grafana
+
+The Kubernetes cluster is monitored using **Prometheus and Grafana**.
+
+Prometheus collects Kubernetes metrics, while Grafana provides dashboards for visualizing cluster and application resource usage.
+
+### Helm
+
+The Prometheus and Grafana monitoring stack was installed using the **kube-prometheus-stack Helm chart**.
+
+Example:
+
+```bash
+helm install prometheus-stack \
+  prometheus-community/kube-prometheus-stack \
+  --namespace monitoring
+```
+
+The monitoring stack includes:
+
+* Prometheus
+* Grafana
+* Alertmanager
+* Kubernetes metrics exporters
+* Prometheus Operator
+
+### Grafana Dashboard
+
+Grafana is used to monitor Kubernetes resources such as:
+
+* CPU utilization
+* Memory utilization
+* CPU requests
+* CPU limits
+* Pod count
+* Namespace resource usage
+* Kubernetes workloads
+
+
+
+The dashboard provides visibility into namespaces such as:
 
 ```text
-Source Code
-    ↓
-Dockerfile
-    ↓
-Docker Image
-    ↓
-Docker Hub
-    ↓
-Kubernetes Deployment
-    ↓
-Pod
-    ↓
-Container
-    ↓
-Service
-    ↓
-Ingress
-    ↓
-User
+ingress-nginx
+kube-system
+monitoring
+zoom-app
+```
+
+---
+
+## 🔄 Complete Deployment & Monitoring Flow
+
+```text
+                 Source Code
+                      │
+                      ▼
+                Dockerfile
+                      │
+                      ▼
+                Docker Image
+                      │
+                      ▼
+                 Docker Hub
+                      │
+                      ▼
+             Kubernetes Deployment
+                      │
+                      ▼
+                     Pod
+                      │
+                ┌─────┴─────┐
+                ▼           ▼
+           Container    Container
+                │
+                ▼
+              Service
+                │
+                ▼
+             Ingress
+                │
+                ▼
+               User
+
+
+       Kubernetes Monitoring
+                │
+                ▼
+              Helm
+                │
+        ┌───────┴────────┐
+        ▼                ▼
+   Prometheus          Grafana
+   Metrics             Dashboard
+        │                │
+        └───────┬────────┘
+                ▼
+       Cluster Monitoring
 ```
 
 ## 🎯 Project Objective
 
-The objective of this project is to develop a scalable video conferencing application while gaining practical experience in **Docker containerization and Kubernetes orchestration**.
+The objective of this project is to develop and deploy a video conferencing application while gaining practical experience in **full-stack development, containerization, Kubernetes orchestration, and cloud-native monitoring**.
 
-The project demonstrates how a full-stack MERN application can be containerized using Docker and deployed using Kubernetes resources such as **Deployments, Pods, Services, Ingress, PV and PVC**.
+The project demonstrates the complete workflow from application source code to Docker images, Kubernetes deployment, external access through Ingress, persistent database storage, and monitoring through Prometheus and Grafana.
 
+## 📌 DevOps Workflow
 
+```text
+Code
+ ↓
+Docker
+ ↓
+Docker Image
+ ↓
+Docker Hub
+ ↓
+Kubernetes
+ ↓
+Deployment
+ ↓
+Pods
+ ↓
+Services
+ ↓
+Ingress
+ ↓
+Prometheus
+ ↓
+Grafana
+```
+
+## 👨‍💻 Author
+
+**Tanmay Shivaji Lashkar**
