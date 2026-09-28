@@ -249,6 +249,4 @@ Prometheus
 Grafana
 ```
 
-## 👨‍💻 Author
-
-**Tanmay Shivaji Lashkar**
+****************************************************
